@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.hkd.mface.model.UserInfo" table="UserInfo">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="realName" />
+		<property name="passWord" />
+		<property name="nickName" />
+		<property name="age" />
+		<property name="sex" />
+		<property name="headImg" />
+		<property name="userType" />
+		<property name="studentNum" />
+		<property name="phone" />
+		<property name="classId" />
+	</class>
+</hibernate-mapping>

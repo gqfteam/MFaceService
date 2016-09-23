@@ -1,0 +1,110 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+						
+	<!--配数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mface" />
+		<property name="user" value="root" />
+		<property name="password" value="root"/>
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<!-- 定义Hibernate的SessionFactory的属性 -->
+		<property name="hibernateProperties">
+			<!-- 指定数据库方言、是否自动建表
+				是否生成SQL语句等 	-->
+			<value>
+			hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+			hibernate.hbm2ddl.auto=update
+			hibernate.show_sql=true
+			hibernate.format_sql=true
+			</value>
+		</property>
+   		 <!-- 如果使用配置文件  <value>com/appjoyo/bean/user/UserInfo.hbm.xml</value>-->
+		<property name="mappingResources"> 
+			<list> 
+			<value>com/hkd/mface/model/UserInfo.hbm.xml</value>
+			
+			</list> 
+		</property>	
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 事务的传播特性 -->
+	<!-- <tx:advice id="txadvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice> -->
+	<!-- 配置事务增强处理Bean,指定事务管理器 -->
+	<tx:advice id="txadvice" transaction-manager="transactionManager">
+		<!-- 用于配置详细的事务语义 -->
+		<tx:attributes>
+			<!-- 所有以'get'开头的方法是read-only的 -->
+			<tx:method name="get*" read-only="true"  propagation="REQUIRED"/>
+			<!-- 其他方法使用默认的事务设置 -->
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 那些类那些方法使用事务 -->
+	<aop:config>
+	  <!-- 只对业务逻辑层实施事务 -->
+		<aop:pointcut id="allManagerMethod"
+			expression="execution(* com.hkd.mface.*.*.*(..))" />
+		<aop:advisor pointcut-ref="allManagerMethod" advice-ref="txadvice" />
+	</aop:config>
+	<!-- 以上配好以后，就开始配dao等的配置 -->
+	
+	<bean id="mUserInfoDaoImpl" class="com.hkd.mface.dao.UserInfoDaoImpl">
+		<property name="mSessionFactory" ref="sessionFactory"/>  
+	</bean>
+	
+	<bean id="mUserInfoServiceDaoImpl" class="com.hkd.mface.service.impl.UserInfoServiceDaoImpl">
+		<property name="mUserInfoDao" ref="mUserInfoDaoImpl"></property>
+	</bean>
+	
+	<bean id="mUserInfoAction" class="com.hkd.mface.action.UserInfoAction">
+		<property name="mUserInfoService" ref="mUserInfoServiceDaoImpl"></property>
+	</bean>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>
