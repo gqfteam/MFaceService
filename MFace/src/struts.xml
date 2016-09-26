@@ -14,5 +14,12 @@
 			<result name="error">/error.jsp</result>
 			<result name="ss">/error.jsp</result>
 		</action>
+		
+		<action name="goodsinfo_*" class="mGoodsInfoAction" method="{1}">
+			<result name="success">/success.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="ss">/error.jsp</result>
+		</action>
+		
 		</package>
 </struts>

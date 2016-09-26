@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.hkd.mface.model.GoodsInfo" table="GoodsInfo">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="phone" />
+		<property name="goodsname" />
+		<property name="goodsdetails" />
+		<property name="goodsimgaddress" />
+		<property name="userphonenum" />
+		<property name="goodsprice" />
+		<property name="shelvestime" />
+		<property name="goodscity" />
+		<property name="goodsuniversity" />
+		<property name="goodscampus" />
+		<property name="goodsclassification" />
+		<property name="goodsspecies" />
+	</class>
+</hibernate-mapping>

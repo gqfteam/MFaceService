@@ -14,9 +14,10 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mface" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mface?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mface" /> -->
 		<property name="user" value="root" />
-		<property name="password" value="root"/>
+		<property name="password" value=""/>
 	</bean>
 	
 	<bean id="sessionFactory"
@@ -34,11 +35,11 @@
 			hibernate.format_sql=true
 			</value>
 		</property>
-   		 <!-- 如果使用配置文件  <value>com/appjoyo/bean/user/UserInfo.hbm.xml</value>-->
+   		 <!-- 如果使用配置文件  <value>com/appjoyo/bean/user/UserInfo.hbm.xml</value> <value>com/hkd/mface/model/GoodsInfo.hbm.xml</value>-->
 		<property name="mappingResources"> 
 			<list> 
 			<value>com/hkd/mface/model/UserInfo.hbm.xml</value>
-			
+			<value>com/hkd/mface/model/GoodsInfo.hbm.xml</value>
 			</list> 
 		</property>	
 	</bean>
@@ -78,7 +79,7 @@
 		<aop:advisor pointcut-ref="allManagerMethod" advice-ref="txadvice" />
 	</aop:config>
 	<!-- 以上配好以后，就开始配dao等的配置 -->
-	
+	<!-- UserInfo表 -->
 	<bean id="mUserInfoDaoImpl" class="com.hkd.mface.dao.UserInfoDaoImpl">
 		<property name="mSessionFactory" ref="sessionFactory"/>  
 	</bean>
@@ -89,6 +90,20 @@
 	
 	<bean id="mUserInfoAction" class="com.hkd.mface.action.UserInfoAction">
 		<property name="mUserInfoService" ref="mUserInfoServiceDaoImpl"></property>
+	</bean>
+	
+	
+	<!-- GoodsInfo表 -->
+	<bean id="mGoodsInfoDaoImpl" class="com.hkd.mface.dao.GoodsInfoDaoImpl">
+		<property name="mSessionFactory" ref="sessionFactory"/>  
+	</bean>
+	
+	<bean id="mGoodsInfoServiceDaoImpl" class="com.hkd.mface.service.impl.GoodsInfoServiceDaoImpl">
+		<property name="mGoodsInfoDao" ref="mGoodsInfoDaoImpl"></property>
+	</bean>
+	
+	<bean id="mGoodsInfoAction" class="com.hkd.mface.action.GoodsInfoAction">
+		<property name="mGoodsInfoService" ref="mGoodsInfoServiceDaoImpl"></property>
 	</bean>
 
 	
