@@ -8,7 +8,7 @@
 		<!-- <interceptors>
         	<interceptor name="myinter"  class="com.appjoyo.action.InterceptorAction"></interceptor>
         </interceptors> -->
-	
+		
 		<action name="userinfo_*" class="mUserInfoAction" method="{1}">
 			<result name="success">/success.jsp</result>
 			<result name="error">/error.jsp</result>

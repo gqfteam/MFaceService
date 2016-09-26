@@ -1,11 +1,10 @@
 package com.hkd.mface.service.impl;
 
-import java.util.ArrayList;
-
 import com.hkd.mface.dao.GoodsInfoDao;
 import com.hkd.mface.model.GoodsInfo;
-import com.hkd.mface.model.UserInfo;
 import com.hkd.mface.service.dao.GoodsInfoServiceDao;
+
+import java.util.ArrayList;
 
 public class GoodsInfoServiceDaoImpl implements GoodsInfoServiceDao{
 
@@ -25,10 +24,10 @@ public class GoodsInfoServiceDaoImpl implements GoodsInfoServiceDao{
 		// TODO Auto-generated method stub
 		boolean flag=mGoodsInfoDao.addGoodsInfo(goods);
 		if(flag){
-			//Ìí¼Ó³É¹¦
+			//ï¿½ï¿½Ó³É¹ï¿½
 			
 		}else{
-			//Ìí¼Ó³É¹¦
+			//ï¿½ï¿½Ó³É¹ï¿½
 			
 		}
 		return flag;
@@ -49,7 +48,14 @@ public class GoodsInfoServiceDaoImpl implements GoodsInfoServiceDao{
 	@Override
 	public ArrayList<GoodsInfo> getUsersGoodsInfo(GoodsInfo goods) {
 		// TODO Auto-generated method stub
-		ArrayList<GoodsInfo> list=mGoodsInfoDao.getUsersGoodsInfo(goods);
+		ArrayList<GoodsInfo> list=null;
+		if(goods.getPhone()!=null&&goods.getGoodsname()==null){
+			list=mGoodsInfoDao.getUsersGoodsInfo(goods);
+		} else if(goods.getGoodsname()!=null&&goods.getPhone()==null){
+			list=mGoodsInfoDao.getLikeGoodsInfo(goods);
+		} else if(goods.getGoodscity()!=null&&goods.getPhone()==null&&goods.getGoodsname()==null){
+			list=mGoodsInfoDao.getGoodsInfoBySchoolAndClassification(goods);
+		}
 		if (list!=null) {
 			if(list.size()>0){
 				return list;
@@ -59,31 +65,5 @@ public class GoodsInfoServiceDaoImpl implements GoodsInfoServiceDao{
 		return null;
 	}
 
-	@Override
-	public ArrayList<GoodsInfo> getLikeGoodsInfo(GoodsInfo goods) {
-		// TODO Auto-generated method stub
-		ArrayList<GoodsInfo> list=mGoodsInfoDao.getLikeGoodsInfo(goods);
-		if (list!=null) {
-			if(list.size()>0){
-				return list;
-			}
-			
-		}
-		return null;
-	}
-
-	@Override
-	public ArrayList<GoodsInfo> getGoodsInfoBySchoolAndClassification(
-			GoodsInfo goods) {
-		// TODO Auto-generated method stub
-		ArrayList<GoodsInfo> list=mGoodsInfoDao.getGoodsInfoBySchoolAndClassification(goods);
-		if (list!=null) {
-			if(list.size()>0){
-				return list;
-			}
-			
-		}
-		return null;
-	}
 
 }

@@ -1,14 +1,13 @@
 package com.hkd.mface.dao;
 
-import java.util.ArrayList;
+import com.hkd.mface.model.GoodsInfo;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.hkd.mface.model.GoodsInfo;
-import com.hkd.mface.model.UserInfo;
+import java.util.ArrayList;
 
 public class GoodsInfoDaoImpl implements GoodsInfoDao{
 	private SessionFactory mSessionFactory;
@@ -60,7 +59,7 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("---------------²éÑ¯Ê§°Ü");
+			System.out.println("---------------ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 		}
 		
 		if (list!=null) {
@@ -83,7 +82,7 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("---------------²éÑ¯Ê§°Ü");
+			System.out.println("---------------ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 		}
 		
 		if (list!=null) {
@@ -98,18 +97,18 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 	@Override
 	public ArrayList<GoodsInfo> getGoodsInfoBySchoolAndClassification(GoodsInfo goods) {
 		// TODO Auto-generated method stub
-		String sqlString="";
-		if(goods.getGoodscity()!=null){//¸ù¾Ý³ÇÊÐ²éÑ¯
-			sqlString=sqlString+"from GoodsInfo where goodscity = '"+goods.getGoodscity()+"'";
-		}else if(goods.getGoodsuniversity()!=null){//¸ù¾ÝÑ§Ð£²éÑ¯
+		String sqlString="from GoodsInfo where ";
+		if(goods.getGoodscity()!=null){//ï¿½ï¿½ï¿½Ý³ï¿½ï¿½Ð²ï¿½Ñ¯
+			sqlString=sqlString+" goodscity = '"+goods.getGoodscity()+"'";
+		}else if(goods.getGoodsuniversity()!=null){//ï¿½ï¿½ï¿½ï¿½Ñ§Ð£ï¿½ï¿½Ñ¯
 			sqlString=sqlString+"' and goodsuniversity = '"+goods.getGoodsuniversity()+"'";
-		}else if(goods.getGoodscampus()!=null){//¸ù¾ÝÐ£Çø²éÑ¯
+		}else if(goods.getGoodscampus()!=null){//ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ñ¯
 			sqlString=sqlString+"' and goodscampus = '"+goods.getGoodscampus()+"'";
 
-		}else if(goods.getGoodsclassification()!=null){//¸ù¾Ý´óÀà²éÑ¯
+		}else if(goods.getGoodsclassification()!=null){//ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½Ñ¯
 			sqlString=sqlString+"' and goodsclassification = '"+goods.getGoodsclassification()+"'";
 
-		}else if(goods.getGoodsspecies()!=null){//¸ù¾ÝÐ¡Àà²éÑ¯
+		}else if(goods.getGoodsspecies()!=null){//ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ñ¯
 			sqlString=sqlString+"' and goodsspecies = '"+goods.getGoodsspecies()+"'";
 		}
 		//String sqlString="from GoodsInfo where phone="+goods.getPhone();//+" and goodsname="+goods.getGoodsname();
@@ -121,7 +120,7 @@ public class GoodsInfoDaoImpl implements GoodsInfoDao{
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("---------------²éÑ¯Ê§°Ü");
+			System.out.println("---------------ï¿½ï¿½Ñ¯Ê§ï¿½ï¿½");
 		}
 		
 		if (list!=null) {

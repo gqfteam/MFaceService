@@ -1,17 +1,16 @@
 package com.hkd.mface.action;
 
+import com.google.gson.Gson;
+import com.hkd.mface.model.GoodsInfo;
+import com.hkd.mface.service.dao.GoodsInfoServiceDao;
+
+import org.apache.struts2.ServletActionContext;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
-
-import com.google.gson.Gson;
-import com.hkd.mface.model.GoodsInfo;
-import com.hkd.mface.model.UserInfo;
-import com.hkd.mface.service.dao.GoodsInfoServiceDao;
 
 public class GoodsInfoAction {
 	private GoodsInfoServiceDao mGoodsInfoService;
@@ -23,7 +22,7 @@ public class GoodsInfoAction {
 	public void setmGoodsInfoService(GoodsInfoServiceDao mGoodsInfoService) {
 		this.mGoodsInfoService = mGoodsInfoService;
 	}
-	//Êý¾Ý²ÎÊý
+	//ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½
 		private String params;
 
 		public void setParams(String params) {
@@ -49,10 +48,10 @@ public class GoodsInfoAction {
 			
 				boolean flag=mGoodsInfoService.addGoodsInfo(goods);	
 				if (flag) {
-					//±£´æ³É¹¦			
+					//ï¿½ï¿½ï¿½ï¿½É¹ï¿½			
 				r.getWriter().print("{\"type\":0,\"result\":\"true\",\"msg\":\"seccess\"}");				
 				}else{
-					//±£´æÊ§°Ü				
+					//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½				
 					r.getWriter().print("{\"type\":1,\"result\":\"false\",\"msg\":\"fail\"}");		
 				}
 			
@@ -74,12 +73,12 @@ public class GoodsInfoAction {
 			
 			try {
 			if (list!=null&&list.size()>0) {
-					//±£´æ³É¹¦		
+					//ï¿½ï¿½ï¿½ï¿½É¹ï¿½		
 				String json=gson.toJson(list);
 				r.getWriter().print("{\"type\":0,\"result\":\"true\",\"msg\":\""+json+"\"}");				
 				}else{
-					//±£´æÊ§°Ü				
-					r.getWriter().print("{\"type\":1,\"result\":\"false\",\"msg\":\"²éÑ¯ÉÌÆ·±íÊ§°Ü\"}");		
+					//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½				
+					r.getWriter().print("{\"type\":1,\"result\":\"false\",\"msg\":\"ï¿½ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½Ê§ï¿½ï¿½\"}");		
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -87,53 +86,6 @@ public class GoodsInfoAction {
 			}
 			
 		}
-public void getLikeGoodsInfo(){
-			
-			Gson gson=new Gson();
-			GoodsInfo goods=gson.fromJson(getParams(), GoodsInfo.class);
 
-			HttpServletResponse r=ServletActionContext.getResponse();
-			r.setContentType("text/html;charset=utf-8");
-			ArrayList<GoodsInfo> list=mGoodsInfoService.getLikeGoodsInfo(goods);
-			
-			try {
-			if (list!=null&&list.size()>0) {
-					//±£´æ³É¹¦		
-				String json=gson.toJson(list);
-				r.getWriter().print("{\"type\":0,\"result\":\"true\",\"msg\":\""+json+"\"}");				
-				}else{
-					//±£´æÊ§°Ü				
-					r.getWriter().print("{\"type\":1,\"result\":\"false\",\"msg\":\"²éÑ¯ÉÌÆ·±íÊ§°Ü\"}");		
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-public void getGoodsInfoBySchoolAndClassification(){
-	
-	Gson gson=new Gson();
-	GoodsInfo goods=gson.fromJson(getParams(), GoodsInfo.class);
-
-	HttpServletResponse r=ServletActionContext.getResponse();
-	r.setContentType("text/html;charset=utf-8");
-	ArrayList<GoodsInfo> list=mGoodsInfoService.getGoodsInfoBySchoolAndClassification(goods);
-	
-	try {
-	if (list!=null&&list.size()>0) {
-			//±£´æ³É¹¦		
-		String json=gson.toJson(list);
-		r.getWriter().print("{\"type\":0,\"result\":\"true\",\"msg\":\""+json+"\"}");				
-		}else{
-			//±£´æÊ§°Ü				
-			r.getWriter().print("{\"type\":1,\"result\":\"false\",\"msg\":\"²éÑ¯ÉÌÆ·±íÊ§°Ü\"}");		
-		}
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-}
 			
 }
